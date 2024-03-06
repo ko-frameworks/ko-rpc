@@ -5,11 +5,8 @@ import com.github.wordfeng.korpc.core.api.RpcRequest;
 import com.github.wordfeng.korpc.core.api.RpcResponse;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/korpc")
-public class KoProviderBootStrap implements ApplicationContextAware {
+public class KoProviderBootstrap implements ApplicationContextAware {
 
     private ApplicationContext context;
 
