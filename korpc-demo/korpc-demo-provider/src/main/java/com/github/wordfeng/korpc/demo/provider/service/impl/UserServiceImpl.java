@@ -19,4 +19,9 @@ public class UserServiceImpl implements UserService {
         String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         return new User(id, format);
     }
+
+    @Override
+    public long echo(long id) {
+        return id;
+    }
 }

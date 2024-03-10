@@ -41,7 +41,7 @@ public class RpcInvocationHandler implements InvocationHandler {
             if (response.getData() instanceof JSONObject jsonResult) {
                 return jsonResult.toJavaObject(method.getReturnType());
             } else {
-                return response;
+                return JSON.to(method.getReturnType(), response.getData());
             }
         }
         Exception exception = response.getException();
