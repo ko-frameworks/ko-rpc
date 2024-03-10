@@ -18,6 +18,7 @@ public class HealthChecker implements ApplicationRunner {
         User user = userService.findById(123L);
         System.out.println(user);
         System.out.println(userService.echo(45888888888886L));
+        System.out.println(userService.echo(425L));
         try {
             User exception = userService.findById(4L);
         } catch (Exception e) {
