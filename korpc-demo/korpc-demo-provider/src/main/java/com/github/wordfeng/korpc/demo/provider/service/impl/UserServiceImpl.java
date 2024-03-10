@@ -13,6 +13,9 @@ import java.time.format.DateTimeFormatter;
 public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
+        if (id == 4) {
+            throw new RuntimeException("User not found !");
+        }
         String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         return new User(id, format);
     }

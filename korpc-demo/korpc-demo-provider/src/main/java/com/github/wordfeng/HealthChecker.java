@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Runner implements ApplicationRunner, ApplicationContextAware {
+public class HealthChecker implements ApplicationRunner, ApplicationContextAware {
 
     private ApplicationContext context;
 

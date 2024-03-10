@@ -1,5 +1,6 @@
 package com.github.wordfeng.korpc.core.provider;
 
+import com.alibaba.fastjson2.JSON;
 import com.github.wordfeng.korpc.core.annotation.RpcProvider;
 import com.github.wordfeng.korpc.core.api.RpcRequest;
 import com.github.wordfeng.korpc.core.api.RpcResponse;
@@ -27,9 +28,28 @@ public class KoProviderBootstrap implements ApplicationContextAware {
     @RequestMapping("/endpoint")
     public RpcResponse invoke(@RequestBody RpcRequest rpcRequest) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Object bean = skeleton.get(rpcRequest.getService());
-        Method method = bean.getClass().getMethod(rpcRequest.getMethod(), rpcRequest.getMethodArgs());
-        Object result = method.invoke(bean, rpcRequest.getArgs());
-        return new RpcResponse(true, result);
+        Method method = bean.getClass().getMethod(rpcRequest.getMethod(), rpcRequest.getArgsType());
+        Class<?>[] argsType = rpcRequest.getArgsType();
+        Object[] realArgs = new Object[argsType.length];
+        for (int i = 0; i < argsType.length; i++) {
+            Object realArg = JSON.to(argsType[i], rpcRequest.getArgs()[i]);
+            realArgs[i] = realArg;
+        }
+        RpcResponse response = new RpcResponse();
+        try {
+            Object result = method.invoke(bean, realArgs);
+            response.setData(result);
+            response.setStatus(true);
+            return response;
+        }  catch (InvocationTargetException e) {
+            e.getTargetException().printStackTrace();
+            response.setException(new RuntimeException(e.getTargetException().getMessage()));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            response.setException(new RuntimeException(e.getMessage()));
+        }
+        response.setStatus(false);
+        return response;
     }
 
     @PostConstruct

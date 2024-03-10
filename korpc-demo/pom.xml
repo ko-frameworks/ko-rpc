@@ -15,6 +15,7 @@
     <modules>
         <module>korpc-demo-api</module>
         <module>korpc-demo-provider</module>
+        <module>kprpc-demo-consumer</module>
     </modules>
 
     <properties>

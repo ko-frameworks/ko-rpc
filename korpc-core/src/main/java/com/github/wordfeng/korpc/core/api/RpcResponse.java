@@ -12,5 +12,6 @@ import lombok.ToString;
 @ToString
 public class RpcResponse {
     private boolean status;
-    Object data;
+    private Object data;
+    private Exception exception;
 }
